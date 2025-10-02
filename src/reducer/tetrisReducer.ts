@@ -20,10 +20,9 @@ const tetrisReducer = (state: GameState, action: GameAction): GameState => {
                 grid: emptyGrid,
                 isGameOver: false,
             };
-        case "SPAWN_PIECE":
+        case "SPAWN_PIECE": {
             if (state.isGameOver) return state;
 
-            // Generate a new piece
             const newPiece = getRandomTetromino();
 
             return {
@@ -34,7 +33,8 @@ const tetrisReducer = (state: GameState, action: GameAction): GameState => {
                     y: spawnPosition.y + extraRows - newPiece.shape.length,
                 },
             };
-        case "MOVE_PIECE":
+        }
+        case "MOVE_PIECE": {
             if (state.isGameOver || !state.currentPiece) return state;
 
             let { x, y } = state.position;
@@ -81,7 +81,8 @@ const tetrisReducer = (state: GameState, action: GameAction): GameState => {
 
             // Submit valid move that doesn't cause collision
             return { ...state, position: { x, y } };
-        case "CLEAR_LINES":
+        }
+        case "CLEAR_LINES": {
             if (state.isGameOver) return state;
 
             // Remove filled lines and add empty lines at the top
@@ -95,6 +96,7 @@ const tetrisReducer = (state: GameState, action: GameAction): GameState => {
             ];
 
             return { ...state, grid: updatedGrid };
+        }
         default:
             return state;
     }

@@ -43,5 +43,5 @@ export const useGameLoop = (
         return () => {
             stopDropping();
         };
-    }, [state]);
+    }, [state, dispatch]);
 };
