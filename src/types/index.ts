@@ -26,4 +26,5 @@ export type GameAction =
     | { type: "START_GAME" }
     | { type: "MOVE_PIECE"; direction: "LEFT" | "RIGHT" | "DOWN" }
     | { type: "SPAWN_PIECE" }
-    | { type: "CLEAR_LINES" };
+    | { type: "CLEAR_LINES" }
+    | { type: "ROTATE_PIECE" };

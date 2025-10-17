@@ -24,6 +24,7 @@ const GameGrid: React.FC<GridProps> = ({ grid }) => {
                     />
                 ))
             )}
+            
         </div>
     );
 };

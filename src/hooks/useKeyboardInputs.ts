@@ -22,6 +22,9 @@ export const useKeyboardInputs = (
                 case "ArrowDown":
                     dispatch({ type: "MOVE_PIECE", direction: "DOWN" });
                     break;
+                case "ArrowUp":
+                    dispatch({ type: "ROTATE_PIECE"});
+                    break;
                 default:
                     break;
             }

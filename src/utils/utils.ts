@@ -1,4 +1,4 @@
-import { gridHeight, gridWidth, TETROMINOS } from "../constants";
+import { emptyCell, gridHeight, gridWidth, TETROMINOS } from "../constants";
 import type { Grid, Position, Tetromino } from "../types";
 
 /**
@@ -52,7 +52,7 @@ export const getMergedGrid = (
 
 export const getVisibleGrid = (grid: Grid, extraRows: number) => {
     return grid.slice(extraRows);
-}
+};
 
 /**
  * Check for collision of a Tetromino piece with the grid boundaries or filled cells.
@@ -85,4 +85,21 @@ export const checkCollision = (
         }
     }
     return false;
+};
+
+export const getRotatedTetronimo = (piece: Tetromino) => {
+    const pieceHeight = piece.shape.length;
+    const pieceWidth = piece.shape[0].length; //b_y + 1
+
+    const resultShape = Array.from({ length: pieceWidth }, () =>
+        Array.from({ length: pieceHeight }, () => 0)
+    );
+
+    for (let y = 0; y < pieceHeight; y++) {
+        for (let x = 0; x < pieceWidth; x++) {
+            resultShape[x][pieceHeight - 1 - y] = piece.shape[y][x];
+        }
+    }
+
+    return {shape: resultShape, color: piece.color} as Tetromino;
 };

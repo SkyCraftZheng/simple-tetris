@@ -4,6 +4,7 @@ import {
     checkCollision,
     getRandomTetromino,
     getMergedGrid,
+    getRotatedTetronimo,
 } from "../utils/utils";
 
 /**
@@ -33,6 +34,16 @@ const tetrisReducer = (state: GameState, action: GameAction): GameState => {
                     y: spawnPosition.y + extraRows - newPiece.shape.length,
                 },
             };
+        }
+        case "ROTATE_PIECE": {
+            if (state.isGameOver || !state.currentPiece) return state;
+            const rotatedPiece = getRotatedTetronimo(state.currentPiece);
+
+            if (checkCollision(state.grid, rotatedPiece, state.position)) {
+                return state;
+            }
+            
+            return {...state, currentPiece: rotatedPiece}
         }
         case "MOVE_PIECE": {
             if (state.isGameOver || !state.currentPiece) return state;

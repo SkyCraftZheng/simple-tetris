@@ -50,3 +50,6 @@ npm run dev
 ```
 
 This will start a server and the application can be viewed in a browser at the port specified in the console
+
+---
+# Rotation
