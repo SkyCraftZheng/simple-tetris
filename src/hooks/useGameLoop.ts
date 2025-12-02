@@ -1,6 +1,5 @@
 import { useEffect, useRef } from "react";
 import type { GameAction, GameState } from "../types";
-import { dropSpeed } from "../constants";
 
 /**
  * Custom hook to manage the game loop for Tetris.
@@ -26,7 +25,7 @@ export const useGameLoop = (
         const startDropping = () => {
             intervalRef.current = window.setInterval(() => {
                 dispatch({ type: "MOVE_PIECE", direction: "DOWN" });
-            }, dropSpeed);
+            }, state.speed);
         };
 
         const stopDropping = () => {
@@ -43,5 +42,5 @@ export const useGameLoop = (
         return () => {
             stopDropping();
         };
-    }, [state, dispatch]);
+    }, [state.speed, state.isGameOver, dispatch]);
 };

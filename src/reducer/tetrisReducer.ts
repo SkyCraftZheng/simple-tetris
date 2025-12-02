@@ -20,6 +20,8 @@ const tetrisReducer = (state: GameState, action: GameAction): GameState => {
                 ...state,
                 grid: emptyGrid,
                 isGameOver: false,
+                score: 0,
+                speed: 1000,
             };
         case "SPAWN_PIECE": {
             if (state.isGameOver) return state;
@@ -106,7 +108,11 @@ const tetrisReducer = (state: GameState, action: GameAction): GameState => {
                 ...newGrid,
             ];
 
-            return { ...state, grid: updatedGrid };
+            const newScore = state.score + linesCleared * 100;
+
+            const newSpeed = Math.max(100, 1000 - Math.floor(newScore / 1000));
+
+            return { ...state, grid: updatedGrid, score: newScore, speed: newSpeed };
         }
         default:
             return state;

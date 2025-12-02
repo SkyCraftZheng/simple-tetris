@@ -40,7 +40,7 @@ const Tetris: React.FC = () => {
                 >
                     Start Game
                 </button>
-            ) : null}
+            ) : <div className="text-amber-100 text-lg">Score: {state.score}</div>}
 
             <div className="flex flex-col items-center bg-white p-3 rounded-md relative">
                 <GameGrid grid={visibleGrid} />

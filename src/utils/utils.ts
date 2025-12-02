@@ -1,4 +1,4 @@
-import { emptyCell, gridHeight, gridWidth, TETROMINOS } from "../constants";
+import { gridHeight, gridWidth, TETROMINOS } from "../constants";
 import type { Grid, Position, Tetromino } from "../types";
 
 /**

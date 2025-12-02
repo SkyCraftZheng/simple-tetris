@@ -65,4 +65,6 @@ export const initialState = {
     isGameOver: true,
     currentPiece: null,
     position: spawnPosition,
+    score: 0,
+    speed: dropSpeed,
 };

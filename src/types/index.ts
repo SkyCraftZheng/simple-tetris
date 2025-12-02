@@ -20,6 +20,8 @@ export type GameState = {
     isGameOver: boolean;
     currentPiece: Tetromino | null;
     position: Position;
+    score: number;
+    speed: number;
 };
 
 export type GameAction =
