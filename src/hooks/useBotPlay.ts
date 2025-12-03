@@ -12,7 +12,7 @@ export const useBotPlay = (
         const startBotPlay = () => {
             intervalRef.current = window.setInterval(() => {
                 dispatch({ type: "UPDATE_STATE", newState: getNextBestState(state)});
-            }, 100);
+            }, 1);
         }
 
         const stopBotPlay = () => {

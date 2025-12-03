@@ -7,9 +7,12 @@ export const extraRows = 4; // Rows above visible grid for spawning pieces
 export const gridHeight = 20 + extraRows;
 export const dropSpeed = 1000; // milliseconds
 
-export const pileHeightWeight = -0.5;
-export const holesWeight = -1;
-export const bumpinessWeight = -0.2;
+export const landingHeightWeight = -1;
+export const holesWeight = -4;
+export const rowWeight = -1;
+export const colWeight = -1;
+export const linesClearedWeight = 1;
+export const wellWeight = -1;
 
 export const TETROMINOS: Record<string, Tetromino> = {
     O: {
