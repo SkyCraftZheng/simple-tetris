@@ -28,11 +28,12 @@ The notion of the best placement of the piece is evaluated according to the same
 - Column Transitions: The total number of column transitions. A column transition occurs when an empty cell is adjacent to a filled cell on the same column and vice versa.
 - Number of Holes: A hole is an empty cell that has at least one filled cell above it in the same column.
 - Well Sums: A well is a succession of empty cells such that their left cells and right cells are both filled.
-
 ### Rotation
 Currently, the rotation is handled by rotating the piece and the new top left corner takes the position that is tracked in the state. This means that there is no consistent axis for rotation for pieces. To implement the regular Tetris version of rotation the position tracking and handling of moving pieces likely needs to be adjusted. Since the pieces will have to rotate around an anchor point unique to each shape, which could change the position of the top left corner of the piece. This means that when rotating a piece it will need to also update the postion of the piece, or it could make more sense to track the position of the anchor point rather than the top left corner of the piece.
 ### Further Considerations
 The webapp currently attaches eventlisteners and intervals to the window, if this project were to be integrated into an existing page as a component, it might be a better idea to mount to the component itself rather than the window.
+
+The solver algorithm is currently not accounting for some valid positions that the current piece can be placed into, as it only accounts for dropping the piece from the top straight down until there is a collision. So if there is an overhang for example, a valid placement could be to let the piece drop till it's below it in a different column then move the piece into the column where the overhang is, but it is not taken into account in the solver as a valid position.s
 
 ## Implementation
 ### Dependencies
