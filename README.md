@@ -11,11 +11,24 @@ One of the main challanges naturally was on handling the moving piece and how to
 
 This way, all the required information for displaying the grid with the moving piece in it is kept track of, and it simplifies the manipulation of the piece as only its position needs to be changed as opposed to however many cells the piece occupies.
 ### Game flow
-When there is a piece dropping down, it falls at a constant rate of 1 second.
+When there is a piece dropping down, it falls at a constant rate of 1 second, and every 10 lines cleared it is reduced by 0.1 seconds.
 
 When a piece would move down, but there is a collision, ie. if the piece would be occupying an already filled cell, the piece is locked to that position. This is when the grid stored in the game state is updated with this newly locked piece merged in.
 
 Then any fully filled rows are cleared then a new piece is spawned.
+### Solver Algorithm
+The general idea is whenever a new piece is generated, all possible positions where that tetromino can be placed is evaluated and the best one is picked.
+
+The notion of the best placement of the piece is evaluated according to the same features as Pierre Dellacherie's algorithm, being 
+- Landing Height: The height where the piece is put
+- Rows eliminated: e * b
+  -    e: the number of rows eliminated
+  -    b: the number of cells of the piece which make contributions to eliminating the rows
+- Row Transitions: The total number of row transitions. A row transition occurs when an empty cell is adjacent to a filled cell on the same row and vice versa.
+- Column Transitions: The total number of column transitions. A column transition occurs when an empty cell is adjacent to a filled cell on the same column and vice versa.
+- Number of Holes: A hole is an empty cell that has at least one filled cell above it in the same column.
+- Well Sums: A well is a succession of empty cells such that their left cells and right cells are both filled.
+
 ### Rotation
 Currently, the rotation is handled by rotating the piece and the new top left corner takes the position that is tracked in the state. This means that there is no consistent axis for rotation for pieces. To implement the regular Tetris version of rotation the position tracking and handling of moving pieces likely needs to be adjusted. Since the pieces will have to rotate around an anchor point unique to each shape, which could change the position of the top left corner of the piece. This means that when rotating a piece it will need to also update the postion of the piece, or it could make more sense to track the position of the anchor point rather than the top left corner of the piece.
 ### Further Considerations

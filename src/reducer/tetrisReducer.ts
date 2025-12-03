@@ -110,7 +110,7 @@ const tetrisReducer = (state: GameState, action: GameAction): GameState => {
 
             const newScore = state.score + linesCleared * 100;
 
-            const newSpeed = Math.max(100, 1000 - Math.floor(newScore / 1000));
+            const newSpeed = Math.max(100, 1000 - Math.floor(newScore / 1000) * 100);
 
             return { ...state, grid: updatedGrid, score: newScore, speed: newSpeed };
         }

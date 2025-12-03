@@ -1,6 +1,6 @@
 import { gridHeight, gridWidth, holesWeight, linesClearedWeight, landingHeightWeight, rowWeight, colWeight, wellWeight } from "../constants";
 import tetrisReducer from "../reducer/tetrisReducer";
-import type { evaluatedState, GameState, Position } from "../types";
+import type { evaluatedState, GameState, Position, Tetromino } from "../types";
 
 export const getNextBestState = (
     state: GameState,
@@ -21,6 +21,9 @@ const getPossibleGameStates = (
     const evaluatedStates: evaluatedState[] = [];
     let simulatedState: GameState = { ...state };
     let position = { ...state.position };
+    let currentPiece = state.currentPiece;
+
+    if (!currentPiece) return evaluatedStates;
 
     for (let x = 0; x < gridWidth; x++) {
         for (let rotation = 0; rotation < 4; rotation++) {
@@ -46,7 +49,7 @@ const getPossibleGameStates = (
                 return row.every(cell => cell.filled) ? lines + 1 : lines;
             }, 0);
             simulatedState = tetrisReducer(simulatedState, { type: "CLEAR_LINES" });
-            evaluatedStates.push({ state: { ...simulatedState }, value: evaluateGameState(simulatedState, position, linesCleared) });
+            evaluatedStates.push({ state: { ...simulatedState }, value: evaluateGameState(simulatedState, position, linesCleared, currentPiece) });
         }
     }
     return evaluatedStates;
@@ -55,11 +58,16 @@ const getPossibleGameStates = (
 const evaluateGameState = (
     state: GameState,
     position: Position,
-    linesCleared: number
+    linesCleared: number,
+    currentPiece: Tetromino,
 ): number => {
     if (state.isGameOver) return -Infinity;
 
     const landingHeight = gridHeight - position.y;
+
+    const bricksInPiece = currentPiece.shape.reduce((count, row, y) => {
+        return count + (currentPiece.shape.length - y) <= linesCleared ? row.reduce((rowCount, cell) => rowCount + (cell ? 1 : 0), 0) : 0;
+    }, 0);
 
     const holes = state.grid.reduce((holeCount, row, y) => {
         return holeCount + row.reduce((rowHoles, cell, x) => {
@@ -111,7 +119,7 @@ const evaluateGameState = (
     console.log(`Landing Height: ${landingHeight}, Holes: ${holes}, Row Transitions: ${rowTransitions}, Col Transitions: ${colTransitions}, Lines Cleared: ${linesCleared}`);
 
     const score = landingHeightWeight * landingHeight + holesWeight * holes
-        + linesClearedWeight * linesCleared * gridWidth
+        + linesClearedWeight * linesCleared * bricksInPiece
         + rowWeight * rowTransitions + colWeight * colTransitions
         + wellWeight * wellSum;
     return score;
