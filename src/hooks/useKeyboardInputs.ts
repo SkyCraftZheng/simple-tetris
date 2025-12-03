@@ -31,7 +31,7 @@ export const useKeyboardInputs = (
             event.preventDefault();
         };
 
-        if (!state.isGameOver) {
+        if (!state.isGameOver && !state.botPlay) {
             window.addEventListener("keydown", handlePress);
         }
         return () => {

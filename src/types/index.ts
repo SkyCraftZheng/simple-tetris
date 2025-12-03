@@ -22,6 +22,12 @@ export type GameState = {
     position: Position;
     score: number;
     speed: number;
+    botPlay: boolean;
+};
+
+export type evaluatedState = {
+    state: GameState;
+    value: number;
 };
 
 export type GameAction =
@@ -29,4 +35,6 @@ export type GameAction =
     | { type: "MOVE_PIECE"; direction: "LEFT" | "RIGHT" | "DOWN" }
     | { type: "SPAWN_PIECE" }
     | { type: "CLEAR_LINES" }
-    | { type: "ROTATE_PIECE" };
+    | { type: "ROTATE_PIECE" }
+    | { type: "UPDATE_STATE"; newState: GameState}
+    | { type: "SET_BOT_PLAY"; botPlay: boolean };

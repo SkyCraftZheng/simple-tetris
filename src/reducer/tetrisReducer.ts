@@ -71,7 +71,7 @@ const tetrisReducer = (state: GameState, action: GameAction): GameState => {
                 if (action.direction === "DOWN") {
                     // If the piece locks above the visible grid: game over
                     if (y < extraRows) {
-                        return { ...state, isGameOver: true };
+                        return { ...state, isGameOver: true, currentPiece: null };
                     }
 
                     const lockedGrid = getMergedGrid(
@@ -113,6 +113,13 @@ const tetrisReducer = (state: GameState, action: GameAction): GameState => {
             const newSpeed = Math.max(100, 1000 - Math.floor(newScore / 1000));
 
             return { ...state, grid: updatedGrid, score: newScore, speed: newSpeed };
+        }
+        case "UPDATE_STATE": {
+            const newState = action.newState;
+            return {...newState};
+        }
+        case "SET_BOT_PLAY": {
+            return { ...state, botPlay: action.botPlay };
         }
         default:
             return state;

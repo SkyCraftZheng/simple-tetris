@@ -7,6 +7,10 @@ export const extraRows = 4; // Rows above visible grid for spawning pieces
 export const gridHeight = 20 + extraRows;
 export const dropSpeed = 1000; // milliseconds
 
+export const pileHeightWeight = -0.5;
+export const holesWeight = -1;
+export const bumpinessWeight = -0.2;
+
 export const TETROMINOS: Record<string, Tetromino> = {
     O: {
         shape: [
@@ -67,4 +71,5 @@ export const initialState = {
     position: spawnPosition,
     score: 0,
     speed: dropSpeed,
+    botPlay: false,
 };

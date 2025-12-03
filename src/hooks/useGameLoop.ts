@@ -35,7 +35,7 @@ export const useGameLoop = (
             }
         };
 
-        if (!state.isGameOver) {
+        if (!state.isGameOver && !state.botPlay) {
             startDropping();
         }
 
